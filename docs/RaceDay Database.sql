@@ -102,3 +102,8 @@ INSERT INTO Enrolments (ParticipantID, CategoryID) VALUES
 (4, 2), -- Emma in Soweto Half Marathon
 (3, 3), -- Michael in Cape Town Cycle
 (4, 5); -- Emma in Durban Ultra Tri
+
+INSERT INTO Results (EnrolmentID, CompletionTime, RankPosition) VALUES
+(1, '03:45:12', 12),
+(2, '01:52:30', 5);
+GO
