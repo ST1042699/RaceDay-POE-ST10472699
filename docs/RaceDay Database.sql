@@ -89,3 +89,10 @@ INSERT INTO Events (OrganiserID, Title, Description, EventDate, Location) VALUES
 (1, 'Soweto Marathon 2026', 'Annual road running event in Soweto.', '2026-11-01 06:00:00', 'FNB Stadium, Johannesburg'),
 (1, 'Cape Town Cycle Tour 2026', 'Scenic coastal cycling event.', '2026-10-15 07:00:00', 'Cape Town City Centre'),
 (2, 'Durban Ultra Tri 2026', 'Premier triathlon along the Golden Mile.', '2026-12-05 06:30:00', 'Suncoast Beach, Durban');
+
+INSERT INTO Categories (EventID, CategoryName, DistanceKM, EntryFee) VALUES
+(1, 'Full Marathon', 42.20, 350.00),
+(1, 'Half Marathon', 21.10, 250.00),
+(2, 'Full Loop Cycle', 109.00, 550.00),
+(2, 'Short Route Cycle', 42.00, 300.00),
+(3, 'Ultra Distance Tri', 113.00, 1200.00);
