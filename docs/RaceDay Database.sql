@@ -74,3 +74,7 @@ CREATE TABLE Results (
     CONSTRAINT FK_Results_Enrolments FOREIGN KEY (EnrolmentID) REFERENCES Enrolments(EnrolmentID)
 );
 GO
+
+INSERT INTO Roles (Rolename) VALUES 
+('Organiser'),
+('Participant');
