@@ -96,3 +96,9 @@ INSERT INTO Categories (EventID, CategoryName, DistanceKM, EntryFee) VALUES
 (2, 'Full Loop Cycle', 109.00, 550.00),
 (2, 'Short Route Cycle', 42.00, 300.00),
 (3, 'Ultra Distance Tri', 113.00, 1200.00);
+
+INSERT INTO Enrolments (ParticipantID, CategoryID) VALUES
+(3, 1), -- Michael in Soweto Full Marathon
+(4, 2), -- Emma in Soweto Half Marathon
+(3, 3), -- Michael in Cape Town Cycle
+(4, 5); -- Emma in Durban Ultra Tri
