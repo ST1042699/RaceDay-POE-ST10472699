@@ -78,3 +78,9 @@ GO
 INSERT INTO Roles (Rolename) VALUES 
 ('Organiser'),
 ('Participant');
+
+INSERT INTO [User] (RoleID, FullName, Email, PasswordHash) VALUES
+(1, 'John Smith', 'john.organiser@raceday.com', 'hashed_pass_123'),
+(1, 'Sarah Jenkins', 'sarah.organiser@raceday.com', 'hashed_pass_456'),
+(2, 'Michael Brown', 'michael.runner@gmail.com', 'hashed_pass_789'),
+(2, 'Emma Watson', 'emma.runner@gmail.com', 'hashed_pass_101');
