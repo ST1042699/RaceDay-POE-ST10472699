@@ -80,10 +80,10 @@ INSERT INTO Roles (Rolename) VALUES
 ('Participant');
 
 INSERT INTO [User] (RoleID, FullName, Email, PasswordHash) VALUES
-(1, 'John Smith', 'john.organiser@raceday.com', 'hashed_pass_123'),
-(1, 'Sarah Jenkins', 'sarah.organiser@raceday.com', 'hashed_pass_456'),
-(2, 'Michael Brown', 'michael.runner@gmail.com', 'hashed_pass_789'),
-(2, 'Emma Watson', 'emma.runner@gmail.com', 'hashed_pass_101');
+(1, 'Leo Smith', 'Leo.organiser@raceday.com', 'hashed_pass_123'),
+(1, 'Sarah Sasha', 'sarah.organiser@raceday.com', 'hashed_pass_456'),
+(2, 'Michael Jordan', 'michael.runner@gmail.com', 'hashed_pass_789'),
+(2, 'Jordan Stone', 'Jordan.runner@gmail.com', 'hashed_pass_101');
 
 INSERT INTO Events (OrganiserID, Title, Description, EventDate, Location) VALUES
 (1, 'Soweto Marathon 2026', 'Annual road running event in Soweto.', '2026-11-01 06:00:00', 'FNB Stadium, Johannesburg'),
@@ -98,12 +98,19 @@ INSERT INTO Categories (EventID, CategoryName, DistanceKM, EntryFee) VALUES
 (3, 'Ultra Distance Tri', 113.00, 1200.00);
 
 INSERT INTO Enrolments (ParticipantID, CategoryID) VALUES
-(3, 1), -- Michael in Soweto Full Marathon
-(4, 2), -- Emma in Soweto Half Marathon
-(3, 3), -- Michael in Cape Town Cycle
-(4, 5); -- Emma in Durban Ultra Tri
+(3, 1), 
+(4, 2),
+(3, 3),
+(4, 5);
 
 INSERT INTO Results (EnrolmentID, CompletionTime, RankPosition) VALUES
 (1, '03:45:12', 12),
 (2, '01:52:30', 5);
 GO
+
+SELECT * FROM Roles;
+SELECT * FROM [User];
+SELECT * FROM Events;
+SELECT * FROM Categories;
+SELECT * FROM Enrolments;
+SELECT * FROM Results;
