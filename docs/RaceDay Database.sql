@@ -84,3 +84,8 @@ INSERT INTO [User] (RoleID, FullName, Email, PasswordHash) VALUES
 (1, 'Sarah Jenkins', 'sarah.organiser@raceday.com', 'hashed_pass_456'),
 (2, 'Michael Brown', 'michael.runner@gmail.com', 'hashed_pass_789'),
 (2, 'Emma Watson', 'emma.runner@gmail.com', 'hashed_pass_101');
+
+INSERT INTO Events (OrganiserID, Title, Description, EventDate, Location) VALUES
+(1, 'Soweto Marathon 2026', 'Annual road running event in Soweto.', '2026-11-01 06:00:00', 'FNB Stadium, Johannesburg'),
+(1, 'Cape Town Cycle Tour 2026', 'Scenic coastal cycling event.', '2026-10-15 07:00:00', 'Cape Town City Centre'),
+(2, 'Durban Ultra Tri 2026', 'Premier triathlon along the Golden Mile.', '2026-12-05 06:30:00', 'Suncoast Beach, Durban');
