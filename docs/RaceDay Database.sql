@@ -54,3 +54,13 @@ CREATE TABLE Categories (
     EntryFee DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_Categories_Events FOREIGN KEY (EventID) REFERENCES Events(EventID) ON DELETE CASCADE
 );
+
+CREATE TABLE Enrolments (
+    EnrolmentID INT IDENTITY(1,1) PRIMARY KEY,
+    ParticipantID INT NOT NULL,
+    CategoryID INT NOT NULL,
+    EnrolledAt DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Enrolments_User FOREIGN KEY (ParticipantID) REFERENCES [User](UserID),
+    CONSTRAINT FK_Enrolments_Categories FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID),
+    CONSTRAINT UQ_Participant_Category UNIQUE (ParticipantID, CategoryID)
+);
