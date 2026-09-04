@@ -1,0 +1,42 @@
+name: Validate Repository Structure
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Check /docs Folder Exists
+        run: |
+          if [ -d "docs" ]; then
+            echo "SUCCESS: /docs folder exists."
+          else
+            echo "ERROR: /docs folder is missing!"
+            exit 1
+          fi
+
+      - name: Verify SQL Script Exists
+        run: |
+          if [ -f "docs/schema.sql" ] || [ -f "docs/RaceDay Database.sql" ]; then
+            echo "SUCCESS: SQL database script exists inside /docs."
+          else
+            echo "ERROR: SQL script missing inside /docs!"
+            exit 1
+          fi
+
+      - name: Verify README.md Exists in Root
+        run: |
+          if [ -f "README.md" ]; then
+            echo "SUCCESS: README.md exists in root directory."
+          else
+            echo "ERROR: README.md is missing!"
+            exit 1
+          fi
