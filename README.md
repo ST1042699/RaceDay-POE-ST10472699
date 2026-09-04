@@ -19,3 +19,7 @@ To create my ERD diagram I chose to use draw.io
 When you go into SSMS you will see my Code you can either select all the text to execute the code 
 or you can press execute straight forward since i have add code to make sure the execution is clean 
 
+## CI/CD workflow screenshot 
+<img width="638" height="224" alt="image" src="https://github.com/user-attachments/assets/88d24713-6a82-4d32-98f1-209b42d38d94" />
+
+
