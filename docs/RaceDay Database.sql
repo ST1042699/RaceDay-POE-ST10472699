@@ -102,7 +102,7 @@ INSERT INTO Categories (EventID, CategoryName, DistanceKM, EntryFee) VALUES
 (1, 'Half Marathon', 21.10, 250.00),
 (2, 'Full Loop Cycle', 109.00, 550.00),
 (2, 'Short Route Cycle', 42.00, 300.00),
-(3, 'Distance Tri', 113.00, 1200.00);
+(3, 'Ultra Tri Distance', 113.00, 1200.00);
 
 --Enrolment Data
 INSERT INTO Enrolments (ParticipantID, CategoryID) VALUES
