@@ -64,9 +64,9 @@
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\user\\OneDrive\\Desktop\\RaceDay\\RaceDay.API\\Controllers\\AuthController.cs",
               "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAcwEwAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAIwEwAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T17:47:05.356Z",
+              "WhenOpened": "2026-10-12T17:57:57.673Z",
               "EditorCaption": ""
             },
             {
@@ -79,8 +79,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAADgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T17:42:47.867Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-12T17:42:47.867Z"
             },
             {
               "$type": "Document",
@@ -92,8 +91,7 @@
               "RelativeToolTip": "Data\\RaceDayDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T17:12:26.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-12T17:12:26.394Z"
             },
             {
               "$type": "Document",
