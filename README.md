@@ -21,5 +21,6 @@ or you can press execute straight forward since i have add code to make sure the
 
 ## CI/CD workflow screenshot 
 <img width="638" height="224" alt="image" src="https://github.com/user-attachments/assets/88d24713-6a82-4d32-98f1-209b42d38d94" />
+<img width="1868" height="730" alt="image" src="https://github.com/user-attachments/assets/c3fca7ab-5b65-4532-96c9-7c1d1fad6f36" />
 
-
+I have completed part 2 of my POE in this part I create the API using my API Endpoint plan i added the updates to my part 2 to ensure that it runs correctly 
