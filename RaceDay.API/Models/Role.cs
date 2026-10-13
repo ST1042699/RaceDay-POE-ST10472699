@@ -1,8 +1,10 @@
-﻿namespace RaceDay.API.Models;
-
-public class Role
+﻿namespace RaceDay.API.Models
 {
-    public int RoleID { get; set; }
-    public string Rolename { get; set; } = string.Empty;
-    public ICollection<User> Users { get; set; } = new List<User>();
+    public class Role
+    {
+        public int RoleID { get; set; }
+        public string Rolename { get; set; } = string.Empty;
+
+        public ICollection<User> Users { get; set; } = new List<User>();
+    }
 }

@@ -1,77 +1,89 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RaceDay.API.Data;
+using RaceDay.API.DTOs;
 using RaceDay.API.Models;
+using BCrypt.Net;
 
-namespace RaceDay.API.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+namespace RaceDay.API.Controllers
 {
-    private readonly RaceDayDbContext _context;
-
-    public AuthController(RaceDayDbContext context) => _context = context;
-
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+    [ApiController]
+    [Route("api/auth")]
+    public class AuthController : ControllerBase
     {
-        if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-            return Conflict(new { message = "This email already exists." }); [cite: 1]
+        private readonly RaceDayDbContext _context;
 
-        // Secure password hashing using BCrypt
-        string passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-
-        var user = new User
+        public AuthController(RaceDayDbContext context)
         {
-            FullName = dto.FullName,
-            Email = dto.Email,
-            PasswordHash = passwordHash,
-            RoleID = dto.RoleId
-        };
+            _context = context;
+        }
 
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(Register), new { id = user.UserID }, new { user.UserID, user.FullName, user.Email, user.RoleID }); [cite: 1]
-    }
-
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto dto)
-    {
-        var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == dto.Email);
-        if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-            return Unauthorized(new { message = "Invalid User credentials." }); [cite: 1]
-
-        // Set up authentication claims and cookie session
-        var claims = new List<Claim>
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
-            new Claim(ClaimTypes.Name, user.FullName),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role.Rolename)
-        };
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+            if (dto.RoleId != 1 && dto.RoleId != 2)
+                return BadRequest("RoleId must be 1 (Organiser) or 2 (Participant)");
 
-        HttpContext.Session.SetString("UserRole", user.Role.Rolename);
-        HttpContext.Session.SetInt32("UserID", user.UserID);
+            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+                return Conflict("This email already exists");
 
-        return Ok(new { message = "Session established successfully", user.UserID, user.FullName, user.Email, Role = user.Role.Rolename }); [cite: 1]
-    }
+            var user = new User
+            {
+                FullName = dto.FullName,
+                Email = dto.Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                RoleID = dto.RoleId,
+                CreatedAt = DateTime.Now
+            };
 
-    [HttpPost("logout")]
-    public async Task<IActionResult> Logout()
-    {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        HttpContext.Session.Clear();
-        return Ok(new { message = "Logged out successfully." }); [cite: 1]
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(Register), new
+            {
+                user.UserID,
+                user.FullName,
+                user.Email,
+                Role = user.RoleID == 1 ? "Organiser" : "Participant"
+            });
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+                return Unauthorized("Invalid credentials");
+
+            // Session-based authentication
+            HttpContext.Session.SetInt32("UserId", user.UserID);
+            HttpContext.Session.SetString("Role", user.Role.Rolename);
+            HttpContext.Session.SetString("FullName", user.FullName);
+
+            return Ok(new
+            {
+                user.UserID,
+                user.FullName,
+                user.Email,
+                Role = user.Role.Rolename,
+                Message = "Logged in successfully"
+            });
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Ok(new { Message = "Logged out successfully" });
+        }
     }
 }
-
-public record RegisterDto(string FullName, string Email, string Password, int RoleId);
-public record LoginDto(string Email, string Password);
