@@ -40,7 +40,7 @@ namespace RaceDay.API.Data
                 .HasForeignKey(c => c.EventID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Decimal precision
+            
             modelBuilder.Entity<Event>()
                 .Property(e => e.Distance)
                 .HasPrecision(5, 2);
@@ -53,7 +53,7 @@ namespace RaceDay.API.Data
                 .Property(c => c.EntryFee)
                 .HasPrecision(10, 2);
 
-            // Seed Roles
+            
             modelBuilder.Entity<Role>().HasData(
                 new Role { RoleID = 1, Rolename = "Organiser" },
                 new Role { RoleID = 2, Rolename = "Participant" }

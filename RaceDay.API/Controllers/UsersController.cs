@@ -56,7 +56,7 @@ namespace RaceDay.API.Controllers
             if (user == null)
                 return Unauthorized();
 
-            // Check email uniqueness if changed
+           
             if (user.Email != dto.Email && await _context.Users.AnyAsync(u => u.Email == dto.Email))
                 return Conflict("Email already in use");
 

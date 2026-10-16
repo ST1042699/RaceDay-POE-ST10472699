@@ -9,7 +9,7 @@ namespace RaceDay.API.DTOs
         public string? Description { get; set; }
 
         [Required]
-        public string EventType { get; set; } = string.Empty; // Run, Walk, Cycle
+        public string EventType { get; set; } = string.Empty; 
 
         [Required]
         public decimal Distance { get; set; }

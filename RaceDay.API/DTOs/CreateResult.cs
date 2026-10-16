@@ -8,7 +8,7 @@ namespace RaceDay.API.DTOs
         public int EnrolmentId { get; set; }
 
         [Required]
-        public string CompletionTime { get; set; } = string.Empty; // "HH:mm:ss"
+        public string CompletionTime { get; set; } = string.Empty;
 
         [Required]
         public int RankPosition { get; set; }

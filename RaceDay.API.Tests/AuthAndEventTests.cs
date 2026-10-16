@@ -23,7 +23,6 @@ namespace RaceDay.API.Tests
             });
         }
 
-        // ---------- AUTHENTICATION TESTS ----------
 
         [Fact]
         public async Task Register_ValidOrganiser_ReturnsCreated()
@@ -56,7 +55,7 @@ namespace RaceDay.API.Tests
 
             await _client.PostAsJsonAsync("/api/auth/register", dto);
 
-            // Second registration with same email
+            
             var response = await _client.PostAsJsonAsync("/api/auth/register", dto);
 
             Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
@@ -67,7 +66,7 @@ namespace RaceDay.API.Tests
         {
             var email = $"login{Guid.NewGuid()}@test.com";
 
-            // Register first
+            
             await _client.PostAsJsonAsync("/api/auth/register", new RegisterDto
             {
                 FullName = "Login User",
@@ -76,7 +75,7 @@ namespace RaceDay.API.Tests
                 RoleId = 2
             });
 
-            // Login
+            
             var loginResponse = await _client.PostAsJsonAsync("/api/auth/login", new LoginDto
             {
                 Email = email,
@@ -85,7 +84,7 @@ namespace RaceDay.API.Tests
 
             Assert.Equal(HttpStatusCode.OK, loginResponse.StatusCode);
 
-            // Verify we can access a protected endpoint
+            
             var profileResponse = await _client.GetAsync("/api/users/profile");
             Assert.Equal(HttpStatusCode.OK, profileResponse.StatusCode);
         }
@@ -115,14 +114,14 @@ namespace RaceDay.API.Tests
         [Fact]
         public async Task GetProfile_WithoutLogin_ReturnsUnauthorized()
         {
-            // Fresh client with no cookies
+            
             var client = _factory.CreateClient();
             var response = await client.GetAsync("/api/users/profile");
 
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
-        // ---------- ROLE-BASED ACCESS TESTS ----------
+       
 
         [Fact]
         public async Task CreateEvent_AsOrganiser_ReturnsCreated()
@@ -182,12 +181,12 @@ namespace RaceDay.API.Tests
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
-        // ---------- ENROLMENT TESTS ----------
+        
 
         [Fact]
         public async Task Enrol_AsParticipant_ReturnsCreated()
         {
-            // 1. Create organiser + event + category
+            
             var organiserClient = await LoginAsOrganiser();
 
             var eventDto = new CreateEventDto
@@ -205,7 +204,7 @@ namespace RaceDay.API.Tests
             var eventContent = await eventResponse.Content.ReadFromJsonAsync<JsonElement>();
             int eventId = eventContent.GetProperty("eventID").GetInt32();
 
-            // Create a category
+           
             var catDto = new CreateCategoryDto
             {
                 CategoryName = "Half Marathon",
@@ -219,7 +218,7 @@ namespace RaceDay.API.Tests
             var catContent = await catResponse.Content.ReadFromJsonAsync<JsonElement>();
             int categoryId = catContent.GetProperty("categoryID").GetInt32();
 
-            // 2. Login as participant and enrol
+            
             var participantClient = await LoginAsParticipant();
 
             var enrolDto = new EnrolDto { CategoryId = categoryId };
@@ -231,7 +230,7 @@ namespace RaceDay.API.Tests
         [Fact]
         public async Task Enrol_Duplicate_ReturnsConflict()
         {
-            // Same setup as above – create event + category
+            
             var organiserClient = await LoginAsOrganiser();
 
             var eventDto = new CreateEventDto
@@ -254,10 +253,10 @@ namespace RaceDay.API.Tests
 
             var participantClient = await LoginAsParticipant();
 
-            // First enrolment
+           
             await participantClient.PostAsJsonAsync("/api/enrolments", new EnrolDto { CategoryId = categoryId });
 
-            // Second enrolment (same category)
+            
             var second = await participantClient.PostAsJsonAsync("/api/enrolments", new EnrolDto { CategoryId = categoryId });
 
             Assert.Equal(HttpStatusCode.Conflict, second.StatusCode);
@@ -273,7 +272,7 @@ namespace RaceDay.API.Tests
             Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
         }
 
-        // ---------- HELPER METHODS ----------
+        
 
         private async Task<HttpClient> LoginAsOrganiser()
         {

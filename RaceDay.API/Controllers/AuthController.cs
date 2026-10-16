@@ -64,7 +64,7 @@ namespace RaceDay.API.Controllers
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return Unauthorized("Invalid credentials");
 
-            // Session-based authentication
+            
             HttpContext.Session.SetInt32("UserId", user.UserID);
             HttpContext.Session.SetString("Role", user.Role.Rolename);
             HttpContext.Session.SetString("FullName", user.FullName);
