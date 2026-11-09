@@ -25,3 +25,12 @@ or you can press execute straight forward since i have add code to make sure the
 
 I have completed part 2 of my POE in this part I create the API using my API Endpoint plan i added the updates to my part 2 to ensure that it runs correctly 
 https://youtu.be/FL4tD5kDeyw
+
+Docker instructions 
+open new powershell window:
+cd "C:\Users\user\OneDrive\Desktop\RaceDay\RaceDay.API"; $env:ASPNETCORE_ENVIRONMENT="Docker"; dotnet run --no-launch-profile --urls "http://0.0.0.0:5168"
+enter this 
+
+open the mvc website in another powershell:
+docker start raceday-mvc; Start-Process "http://localhost:8081" 
+and then enter it 
