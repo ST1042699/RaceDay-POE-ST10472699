@@ -42,4 +42,4 @@ to start the docker enter this
 docker run -d --name raceday-mvc -p 8081:8080 -e ASPNETCORE_ENVIRONMENT=Production -e ApiSettings__BaseUrl=http://host.docker.internal:5168/ raceday-mvc
 open google chrome 
 and check http://localhost:8081
-the website should open 
+in the docker  
