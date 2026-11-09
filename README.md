@@ -34,3 +34,6 @@ enter this
 open the mvc website in another powershell:
 docker start raceday-mvc; Start-Process "http://localhost:8081" 
 and then enter it 
+
+part 3 youtube link
+https://youtu.be/O-ZJz-dP72k
