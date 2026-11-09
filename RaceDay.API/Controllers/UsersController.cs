@@ -38,7 +38,8 @@ namespace RaceDay.API.Controllers
                 user.FullName,
                 user.Email,
                 Role = user.Role.Rolename,
-                user.CreatedAt
+                user.CreatedAt,
+                user.ProfilePictureUrl
             });
         }
 
@@ -70,6 +71,7 @@ namespace RaceDay.API.Controllers
                 user.UserID,
                 user.FullName,
                 user.Email,
+                user.ProfilePictureUrl,
                 Message = "Profile updated successfully"
             });
         }

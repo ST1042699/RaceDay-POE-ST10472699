@@ -1,0 +1,56 @@
+﻿@model EventFormViewModel
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="form-card">
+    <h1 class="page-heading">Edit Event</h1>
+
+    <form asp-action="EditEvent" asp-route-id="@Model.EventID" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="EventID" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EventType" class="form-label"></label>
+            <select asp-for="EventType" class="form-select">
+                <option>Run</option>
+                <option>Walk</option>
+                <option>Cycle</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Distance" class="form-label"></label>
+            <input asp-for="Distance" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="EventDate" class="form-label"></label>
+            <input asp-for="EventDate" type="datetime-local" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Location" class="form-label"></label>
+            <input asp-for="Location" class="form-control" />
+        </div>
+        <button class="btn btn-raceday">Save Changes</button>
+    </form>
+
+    <hr />
+
+    <h2 class="h5">Event Banner</h2>
+    <form asp-action="UploadBanner" asp-route-id="@Model.EventID"
+          method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="file" name="file" accept="image/jpeg,image/png,image/webp"
+               class="form-control mb-3" required />
+        <button class="btn btn-outline-dark">Upload Banner</button>
+    </form>
+</div>

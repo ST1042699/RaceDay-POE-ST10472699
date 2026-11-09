@@ -1,0 +1,47 @@
+﻿@model ProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<h1 class="page-heading">My Profile</h1>
+
+<div class="form-card">
+    @if (!string.IsNullOrWhiteSpace(Model.ProfilePictureUrl))
+    {
+        <img src="@Model.ProfilePictureUrl"
+             alt="Profile picture"
+             class="rounded-circle mb-3"
+             style="width:120px;height:120px;object-fit:cover" />
+    }
+
+    <p><strong>Account type:</strong> @Model.Role</p>
+    <p><strong>Member since:</strong> @Model.CreatedAt.ToString("dd MMM yyyy")</p>
+
+    <form asp-action="Profile" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label class="form-label">Full name</label>
+            <input name="FullName" value="@Model.FullName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input name="Email" value="@Model.Email" type="email" class="form-control" required />
+        </div>
+
+        <button class="btn btn-raceday" type="submit">Save Changes</button>
+    </form>
+
+    <hr />
+
+    <h2 class="h5">Profile picture</h2>
+
+    <form asp-action="UploadProfilePicture"
+          method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="file" name="file" accept="image/jpeg,image/png,image/webp"
+               class="form-control mb-3" required />
+        <button type="submit" class="btn btn-outline-dark">Upload Picture</button>
+    </form>
+</div>

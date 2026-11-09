@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Authentication.Cookies; // <--- Add this using
-using System.Text.Json.Serialization;             // <--- Add this using
+using Microsoft.AspNetCore.Authentication.Cookies; 
+using System.Text.Json.Serialization;             
 using Microsoft.EntityFrameworkCore;
 using RaceDay.API.Data;
+using RaceDay.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,7 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
+builder.Services.AddSingleton<IBlobStorageService, AzureBlobStorageService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -58,7 +60,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
-app.UseAuthentication(); // <--- Make sure UseAuthentication is before UseAuthorization
+app.UseAuthentication(); 
 app.UseSession();
 app.UseAuthorization();
 app.MapControllers();

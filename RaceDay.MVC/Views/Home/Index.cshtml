@@ -1,0 +1,133 @@
+﻿@model List<EventViewModel>
+
+@{
+    ViewData["Title"] = "Discover Events";
+
+    var selectedEventType = ViewBag.EventType?.ToString();
+}
+
+<section class="hero">
+
+    <p class="text-uppercase fw-bold" style="color:#b8f34a">
+        Find your next challenge
+    </p>
+
+    <h1>Every finish line starts somewhere.</h1>
+
+    <p class="lead">
+        Discover running, walking and cycling events with RaceDay.
+    </p>
+
+</section>
+
+<!-- SEARCH AND FILTER EVENTS -->
+<form method="get" class="row g-2 mb-4">
+
+    <div class="col-md-6">
+        <input name="search"
+               class="form-control"
+               value="@ViewBag.Search"
+               placeholder="Search event or location..." />
+    </div>
+
+    <div class="col-md-3">
+        <select name="eventType" class="form-select">
+
+            <option value="">All event types</option>
+
+            <option value="Run"
+                    selected="@(selectedEventType == "Run")">
+                Run
+            </option>
+
+            <option value="Walk"
+                    selected="@(selectedEventType == "Walk")">
+                Walk
+            </option>
+
+            <option value="Cycle"
+                    selected="@(selectedEventType == "Cycle")">
+                Cycle
+            </option>
+
+        </select>
+    </div>
+
+    <div class="col-md-3 d-grid">
+        <button type="submit" class="btn btn-dark">
+            Find Events
+        </button>
+    </div>
+
+</form>
+
+<!-- DISPLAY EVENTS -->
+<div class="row g-4">
+
+    @foreach (var ev in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+
+            <article class="race-card">
+
+                <!-- EVENT BANNER -->
+                @if (!string.IsNullOrWhiteSpace(ev.BannerImageUrl))
+                {
+                    <img src="@($"http://localhost:5168/api/images/event-banner/{ev.EventID}")"
+                         alt="Banner for @ev.Title"
+                         style="width:100%; height:200px; object-fit:cover;" />
+                }
+                else
+                {
+                    <div class="d-flex align-items-center justify-content-center"
+                         style="height:200px; background:#101b32; color:#b8f34a; font-size:2rem;">
+                        🏁 RaceDay
+                    </div>
+                }
+
+                <!-- EVENT INFORMATION -->
+                <div class="race-card-body">
+
+                    <span class="badge text-bg-success">
+                        @ev.EventType
+                    </span>
+
+                    <h3 class="h5 mt-3">
+                        @ev.Title
+                    </h3>
+
+                    <p class="text-secondary mb-1">
+                        📍 @ev.Location
+                    </p>
+
+                    <p class="text-secondary">
+                        📅 @ev.EventDate.ToString("dd MMM yyyy")
+                    </p>
+
+                    <p>
+                        @ev.Distance km
+                    </p>
+
+                    <a class="btn btn-raceday"
+                       asp-controller="Home"
+                       asp-action="Details"
+                       asp-route-id="@ev.EventID">
+                        View Event
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+    }
+
+</div>
+
+<!-- NO EVENTS MESSAGE -->
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-info mt-3">
+        No events matched your search. Try another search or event type.
+    </div>
+}

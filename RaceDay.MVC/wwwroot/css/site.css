@@ -1,0 +1,104 @@
+:root {
+    --race-navy: #101b32;
+    --race-green: #b8f34a;
+    --race-muted: #64748b;
+    --race-background: #f3f6fa;
+}
+
+body {
+    background: var(--race-background);
+    color: #1d2939;
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.raceday-nav {
+    background: var(--race-navy);
+    border-bottom: 4px solid var(--race-green);
+}
+
+.navbar-brand {
+    letter-spacing: .4px;
+}
+
+.btn-raceday {
+    background: var(--race-green);
+    color: var(--race-navy);
+    font-weight: 700;
+    border: 0;
+}
+
+    .btn-raceday:hover {
+        background: #a5df36;
+        color: var(--race-navy);
+    }
+
+.hero {
+    background: linear-gradient(120deg, #101b32, #24446a);
+    color: white;
+    border-radius: 18px;
+    padding: 40px;
+    margin-bottom: 28px;
+}
+
+    .hero h1 {
+        font-weight: 800;
+    }
+
+.race-card {
+    background: white;
+    border: 1px solid #e1e7ef;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 5px 18px rgba(16, 27, 50, .05);
+}
+
+    .race-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+.race-card-body {
+    padding: 20px;
+}
+
+.status-confirmed {
+    color: #146c43;
+    background: #d1e7dd;
+}
+
+.status-pending {
+    color: #664d03;
+    background: #fff3cd;
+}
+
+.page-heading {
+    font-weight: 800;
+    color: var(--race-navy);
+    margin-bottom: 20px;
+}
+
+.form-card {
+    max-width: 700px;
+    margin: auto;
+    padding: 28px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(16, 27, 50, .06);
+}
+
+footer {
+    color: var(--race-muted);
+}
+
+.table {
+    background: white;
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding: 24px;
+    }
+}

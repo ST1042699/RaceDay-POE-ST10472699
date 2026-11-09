@@ -1,4 +1,4 @@
-name: Validate Repository Structure
+name: .NET CI/CD Build and Test
 
 on:
   push:
@@ -7,36 +7,23 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  validate-docs:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository Code
-        uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-      - name: Check /docs Folder Exists
-        run: |
-          if [ -d "docs" ]; then
-            echo "SUCCESS: /docs folder exists."
-          else
-            echo "ERROR: /docs folder is missing!"
-            exit 1
-          fi
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' # Adjust to match your .NET version (e.g., 6.0, 7.0, or 8.0)
 
-      - name: Verify SQL Script Exists
-        run: |
-          if [ -f "docs/schema.sql" ] || [ -f "docs/RaceDay Database.sql" ]; then
-            echo "SUCCESS: SQL database script exists inside /docs."
-          else
-            echo "ERROR: SQL script missing inside /docs!"
-            exit 1
-          fi
+    - name: Restore Dependencies
+      run: dotnet restore
 
-      - name: Verify README.md Exists in Root
-        run: |
-          if [ -f "README.md" ]; then
-            echo "SUCCESS: README.md exists in root directory."
-          else
-            echo "ERROR: README.md is missing!"
-            exit 1
-          fi
+    - name: Build Project
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run Unit and Integration Tests
+      run: dotnet test --no-build --configuration Release --verbosity normal

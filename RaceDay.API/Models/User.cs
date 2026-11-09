@@ -4,13 +4,21 @@
     {
         public int UserID { get; set; }
         public int RoleID { get; set; }
+
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        // Part 3: URL of the profile picture in Azure Blob Storage.
+        public string? ProfilePictureUrl { get; set; }
+
         public Role Role { get; set; } = null!;
-        public ICollection<Event> OrganisedEvents { get; set; } = new List<Event>();
-        public ICollection<Enrolment> Enrolments { get; set; } = new List<Enrolment>();
+
+        public ICollection<Event> OrganisedEvents { get; set; }
+            = new List<Event>();
+
+        public ICollection<Enrolment> Enrolments { get; set; }
+            = new List<Enrolment>();
     }
 }

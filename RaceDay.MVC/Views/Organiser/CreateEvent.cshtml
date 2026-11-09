@@ -1,0 +1,51 @@
+﻿@model EventFormViewModel
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="form-card">
+    <h1 class="page-heading">Create Event</h1>
+
+    <form asp-action="CreateEvent" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Event name</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EventType" class="form-label">Event type</label>
+            <select asp-for="EventType" class="form-select">
+                <option>Run</option>
+                <option>Walk</option>
+                <option>Cycle</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Distance" class="form-label">Distance (km)</label>
+            <input asp-for="Distance" class="form-control" />
+            <span asp-validation-for="Distance" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EventDate" class="form-label">Date and time</label>
+            <input asp-for="EventDate" type="datetime-local" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Location" class="form-label"></label>
+            <input asp-for="Location" class="form-control" />
+        </div>
+
+        <button class="btn btn-raceday" type="submit">Create Event</button>
+    </form>
+</div>

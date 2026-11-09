@@ -1,0 +1,41 @@
+﻿@model List<EnrolmentViewModel>
+@{
+    ViewData["Title"] = "Event Enrolments";
+}
+
+<h1 class="page-heading">Event Enrolments</h1>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Participant</th>
+                <th>Email</th>
+                <th>Category</th>
+                <th>Enrolled</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Participant</td>
+                    <td>@item.Email</td>
+                    <td>@item.Category</td>
+                    <td>@item.EnrolledAt.ToString("dd MMM yyyy")</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary"
+                           asp-action="AddResult"
+                           asp-route-enrolmentId="@item.EnrolmentID">Add Result</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.Count == 0)
+{
+    <p class="alert alert-info">There are no enrolments for this event yet.</p>
+}

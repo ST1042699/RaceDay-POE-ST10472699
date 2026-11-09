@@ -1,0 +1,128 @@
+﻿@model EventViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+
+    var role = Context.Session.GetString("Role");
+    var loggedIn = Context.Session.GetInt32("UserId") != null;
+}
+
+<h1 class="page-heading">@Model.Title</h1>
+
+<!-- EVENT BANNER -->
+@if (!string.IsNullOrWhiteSpace(Model.BannerImageUrl))
+{
+    <img src="@($"http://localhost:5168/api/images/event-banner/{Model.EventID}")"
+         alt="Banner for @Model.Title"
+         class="img-fluid rounded mb-4"
+         style="max-height:360px; width:100%; object-fit:cover;" />
+}
+else
+{
+    <div class="d-flex align-items-center justify-content-center rounded mb-4"
+         style="height:250px; background:#101b32; color:#b8f34a; font-size:2rem;">
+        🏁 RaceDay
+    </div>
+}
+
+<!-- EVENT INFORMATION -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+
+        <span class="badge text-bg-success">
+            @Model.EventType
+        </span>
+
+        <p class="mt-3">@Model.Description</p>
+
+        <p>
+            <strong>Location:</strong> @Model.Location
+        </p>
+
+        <p>
+            <strong>Date:</strong>
+            @Model.EventDate.ToString("dd MMMM yyyy HH:mm")
+        </p>
+
+        <p>
+            <strong>Distance:</strong> @Model.Distance km
+        </p>
+
+        <p>
+            <strong>Organiser:</strong> @Model.Organiser
+        </p>
+
+    </div>
+</div>
+
+<!-- AVAILABLE CATEGORIES -->
+<h2 class="h4 mb-3">Available Categories</h2>
+
+@if (Model.Categories == null || !Model.Categories.Any())
+{
+    <div class="alert alert-info">
+        No categories have been added yet.
+    </div>
+}
+else
+{
+    <div class="row g-3">
+
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-md-6">
+
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+
+                        <h3 class="h5">
+                            @category.CategoryName
+                        </h3>
+
+                        <p>
+                            Distance: @category.DistanceKM km
+                        </p>
+
+                        <p>
+                            Entry fee: R @category.EntryFee.ToString("0.00")
+                        </p>
+
+                        @if (loggedIn && role == "Participant")
+                        {
+                            <form asp-controller="Participant"
+                                  asp-action="Enrol"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="eventId"
+                                       value="@Model.EventID" />
+
+                                <input type="hidden"
+                                       name="CategoryId"
+                                       value="@category.CategoryID" />
+
+                                <button class="btn btn-raceday" type="submit">
+                                    Enter Event
+                                </button>
+
+                            </form>
+                        }
+                        else if (!loggedIn)
+                        {
+                            <a class="btn btn-outline-dark"
+                               asp-controller="Account"
+                               asp-action="Login">
+                                Log in to enter
+                            </a>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+}

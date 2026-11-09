@@ -4,15 +4,20 @@
     {
         public int EventID { get; set; }
         public int OrganiserID { get; set; }
+
         public string Title { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public string EventType { get; set; } = string.Empty; // Run, Walk, Cycle
+        public string EventType { get; set; } = string.Empty;
         public decimal Distance { get; set; }
         public DateTime EventDate { get; set; }
         public string Location { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        // Part 3: URL of the banner stored in Azure Blob Storage.
+        public string? BannerImageUrl { get; set; }
+
         public User Organiser { get; set; } = null!;
-        public ICollection<Category> Categories { get; set; } = new List<Category>();
+        public ICollection<Category> Categories { get; set; }
+            = new List<Category>();
     }
 }

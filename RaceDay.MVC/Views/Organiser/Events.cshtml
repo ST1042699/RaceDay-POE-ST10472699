@@ -1,0 +1,49 @@
+﻿@model List<EventViewModel>
+@{
+    ViewData["Title"] = "Manage Events";
+}
+
+<h1 class="page-heading">Manage Events</h1>
+
+<a class="btn btn-raceday mb-3" asp-action="CreateEvent">Create New Event</a>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ev in Model)
+            {
+                <tr>
+                    <td>@ev.Title</td>
+                    <td>@ev.EventDate.ToString("dd MMM yyyy")</td>
+                    <td>@ev.Location</td>
+                    <td>@ev.EventType</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-dark"
+                           asp-action="EditEvent" asp-route-id="@ev.EventID">Edit</a>
+                        <a class="btn btn-sm btn-outline-primary"
+                           asp-action="Categories" asp-route-id="@ev.EventID">Categories</a>
+                        <a class="btn btn-sm btn-outline-success"
+                           asp-action="Enrolments" asp-route-id="@ev.EventID">Enrolments</a>
+                        <form asp-action="DeleteEvent" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@ev.EventID" />
+                            <button class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Delete this event?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

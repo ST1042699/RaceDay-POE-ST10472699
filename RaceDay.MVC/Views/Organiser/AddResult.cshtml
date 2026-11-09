@@ -1,0 +1,32 @@
+﻿@model ResultFormViewModel
+@{
+    ViewData["Title"] = "Record Result";
+}
+
+<div class="form-card">
+    <h1 class="page-heading">Record Race Result</h1>
+
+    <form asp-action="AddResult" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input asp-for="EnrolmentId" type="hidden" />
+
+        <div class="mb-3">
+            <label asp-for="CompletionTime" class="form-label">
+                Finish time (HH:mm:ss)
+            </label>
+            <input asp-for="CompletionTime" class="form-control"
+                   placeholder="00:42:15" />
+            <span asp-validation-for="CompletionTime" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="RankPosition" class="form-label">Finishing position</label>
+            <input asp-for="RankPosition" type="number" min="1" class="form-control" />
+            <span asp-validation-for="RankPosition" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-raceday">Publish Result</button>
+    </form>
+</div>
