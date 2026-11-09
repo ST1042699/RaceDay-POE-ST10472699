@@ -27,19 +27,10 @@ I have completed part 2 of my POE in this part I create the API using my API End
 https://youtu.be/FL4tD5kDeyw
 
 Docker instructions 
-open powershell terminal in RaceDay.MVC 
-docker build -t raveday-mvc -f Dockerfile .
-press nter wait for it to finish 
+open new powershell window:
+cd "C:\Users\user\OneDrive\Desktop\RaceDay\RaceDay.API"; $env:ASPNETCORE_ENVIRONMENT="Docker"; dotnet run --no-launch-profile --urls "http://0.0.0.0:5168"
+enter this 
 
-next open RaceDay.API terminal 
-dotnet run --no-launch-profile --urls "http://0.0.0.0:5168"
-wait until you see Now listening on: http://0.0.0.0:5168
-
-to start the docker in your website go the go the RaveDay.MVC terminal again 
-docker rm -f raceday-mvc
-enter that 
-to start the docker enter this 
-docker run -d --name raceday-mvc -p 8081:8080 -e ASPNETCORE_ENVIRONMENT=Production -e ApiSettings__BaseUrl=http://host.docker.internal:5168/ raceday-mvc
-open google chrome 
-and check http://localhost:8081
-in the docker  
+open the mvc website in another powershell:
+docker start raceday-mvc; Start-Process "http://localhost:8081" 
+and then enter it 
